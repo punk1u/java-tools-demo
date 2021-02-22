@@ -58,6 +58,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!--引入Elastic Search依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
