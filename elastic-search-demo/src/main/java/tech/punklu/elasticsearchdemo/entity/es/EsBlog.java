@@ -1,5 +1,8 @@
 package tech.punklu.elasticsearchdemo.entity.es;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
@@ -15,6 +18,7 @@ import java.util.Date;
  * createIndex:是否在启动项目时重新在ES中创建这个索引
  */
 @Document(indexName = "blog",type = "doc",useServerConfiguration = true,createIndex = false)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class EsBlog {
 
     /**
@@ -46,12 +50,16 @@ public class EsBlog {
     /**
      * 博客创建时间
      */
-    @Field(type = FieldType.Date,format = DateFormat.custom,pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis")
-    private Date createTime;
+    @Field(type = FieldType.Date, format = DateFormat.custom,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(locale="zh", timezone="GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date create_time;
 
     /**
      * 博客更新时间
      */
-    @Field(type = FieldType.Date,format = DateFormat.custom,pattern = "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis")
-    private Date updateTime;
+    @Field(type = FieldType.Date, format = DateFormat.custom,
+            pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    @JsonFormat(locale="zh", timezone="GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date update_time;
 }
